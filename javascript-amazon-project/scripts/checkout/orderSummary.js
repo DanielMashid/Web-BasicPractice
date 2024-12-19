@@ -6,6 +6,7 @@ import {
 	deliveryOptions,
 	getDeliveryOption,
 } from "../../data/deliveryOptions.js";
+import { renderPaymentSummary } from "./paymentSummary.js";
 
 export function renderOrderSummary() {
 	let cartSummaryHTML = "";
@@ -74,16 +75,16 @@ export function renderOrderSummary() {
 	function deliveryOptionsHTML(matchingProduct, cartItem) {
 		let html = "";
 
-		deliveryOptions.forEach((deliveryOptions) => {
+		deliveryOptions.forEach((deliveryOption) => {
 			const today = dayjs();
-			const deliveryDate = today.add(deliveryOptions.deliveryDays, "days");
+			const deliveryDate = today.add(deliveryOption.deliveryDays, "days");
 			const dateString = deliveryDate.format("dddd, MMMM D");
 			const priceString =
-				deliveryOptions.priceCents === 0
+				deliveryOption.priceCents === 0
 					? "FREE"
-					: `$${formatCurrency(deliveryOptions.priceCents)} -`;
+					: `$${formatCurrency(deliveryOption.priceCents)} -`;
 
-			const isChecked = deliveryOptions.id === cartItem.deliveryOptionsId;
+			const isChecked = deliveryOption.id === cartItem.deliveryOptionId;
 
 			html += `
             <div class="delivery-option js-delivery-option"
@@ -118,6 +119,8 @@ export function renderOrderSummary() {
 				`.js-cart-item-container-${productId}`
 			);
 			container.remove();
+
+			renderPaymentSummary();
 		});
 	});
 
@@ -129,6 +132,7 @@ export function renderOrderSummary() {
 
 			updateDeliveryOption(productId, deliveryOptionId);
 			renderOrderSummary();
+			renderPaymentSummary();
 		});
 	});
 }
