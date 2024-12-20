@@ -1,3 +1,5 @@
+// Simulate the delivery options available for the user to choose from
+
 export const deliveryOptions = [
 	{
 		id: "1",
@@ -16,6 +18,7 @@ export const deliveryOptions = [
 	},
 ];
 
+// Get the delivery option by its ID
 export function getDeliveryOption(deliveryOptionId) {
 	let deliveryOption;
 
@@ -25,5 +28,6 @@ export function getDeliveryOption(deliveryOptionId) {
 		}
 	});
 
+	// If the delivery option is not found, return the first one
 	return deliveryOption || deliveryOptions[0];
 }

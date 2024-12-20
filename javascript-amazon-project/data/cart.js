@@ -1,5 +1,6 @@
-export let cart = JSON.parse(localStorage.getItem("cart"));
+export let cart = JSON.parse(localStorage.getItem("cart")); // Get the cart from local storage
 
+// If there is no cart in local storage, create a default cart
 if (!cart) {
 	cart = [
 		{
@@ -22,11 +23,13 @@ function saveToStorage() {
 export function addToCart(myProductId) {
 	let matchingItem;
 
+	// Check if the product is already in the cart
 	cart.forEach((cartItem) => {
 		if (myProductId === cartItem.productId) {
 			matchingItem = cartItem;
 		}
 	});
+	// If the product is already in the cart, increase the quantity
 	if (matchingItem) {
 		matchingItem.quantity += 1;
 	} else {
@@ -43,6 +46,7 @@ export function addToCart(myProductId) {
 export function removeFromCart(myProductId) {
 	const newCart = [];
 
+	// This for each loop will add all items to the newCart except the one with the productId that we want to remove
 	cart.forEach((cartItem) => {
 		if (cartItem.productId !== myProductId) {
 			newCart.push(cartItem);
@@ -54,6 +58,7 @@ export function removeFromCart(myProductId) {
 	saveToStorage();
 }
 
+// This function will update the delivery option for a specific product in the cart
 export function updateDeliveryOption(myProductId, myDeliveryOptionId) {
 	let matchingItem;
 
