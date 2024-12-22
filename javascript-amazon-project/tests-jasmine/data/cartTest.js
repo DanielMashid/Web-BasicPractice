@@ -1,3 +1,4 @@
+// Unit tests for the addToCart function.
 import { addToCart, cart, loadFromStorage } from "../../data/cart.js";
 
 describe("test suite: addToCart", () => {
