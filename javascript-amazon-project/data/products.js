@@ -76,8 +76,6 @@ export function loadProducts(fun) {
 	xhr.send();
 }
 
-loadProducts();
-
 // Simulate the product data available in the database
 /*
 export const products = [
