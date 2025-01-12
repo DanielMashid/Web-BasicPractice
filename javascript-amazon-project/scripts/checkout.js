@@ -5,22 +5,40 @@ import { loadCart } from "../data/cart.js";
 // import "../data/cart-class.js";
 // import "../data/backend-practice.js";
 
+// Use async and await to handle asynchronous operations, instead of callbacks and promises, because it makes the code easier to read and write
+async function loadPage() {
+	await loadProductsFetch();
+
+	const value = await new Promise((resolve) => {
+		loadCart(() => {
+			resolve("value3");
+		});
+	});
+
+	renderOrderSummary();
+	renderPaymentSummary();
+}
+loadPage();
+
 // Promises are used to handle asynchronous operations in JavaScript.
 // Use promises instead of callbacks, promises help keep our code flat
 // Promise all is used to run multiple promises at the same time, but it will wait for all of them to finish before moving on
 
+/*
 Promise.all([
-	loadProductsFetch(),
-	new Promise((resolve) => {
-		loadCart(() => {
-			resolve();
-		});
-	}),
+  loadProductsFetch(),
+  new Promise((resolve) => {
+    loadCart(() => {
+      resolve();
+    });
+  })
+
 ]).then((values) => {
-	console.log(values);
-	renderOrderSummary();
-	renderPaymentSummary();
+  console.log(values);
+  renderOrderSummary();
+  renderPaymentSummary();
 });
+*/
 
 /*
 new Promise((resolve) => {
