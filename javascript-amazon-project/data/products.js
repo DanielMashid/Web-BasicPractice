@@ -56,6 +56,30 @@ class Clothing extends Product {
 
 export let products = [];
 
+// Fetch is a modern replacement for XMLHttpRequest, it is a promise-based API
+export function loadProductsFetch() {
+	const promise = fetch("https://supersimplebackend.dev/products")
+		.then((response) => {
+			return response.json();
+		})
+		.then((productsData) => {
+			products = productsData.map((productDetails) => {
+				if (productDetails.type === "clothing") {
+					return new Clothing(productDetails);
+				}
+				return new Product(productDetails);
+			});
+
+			console.log("load Products");
+		});
+
+	return promise;
+}
+
+// loadProductsFetch().then(() => {
+// 	console.log("Next step");
+// });
+
 export function loadProducts(fun) {
 	const xhr = new XMLHttpRequest();
 
